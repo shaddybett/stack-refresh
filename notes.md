@@ -14,3 +14,6 @@ CORS allows us interact with the backend from a different specified url and by d
 
 <!-- JSON -->
 Data format used to send data between frontend and backend
+
+404 means endpoint does not exist 
+flask blue prints separate routes for cleaner code
