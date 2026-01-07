@@ -1,19 +1,13 @@
-Why do we need an orm? ORM(object relational mapper) allows us to interact with the database without writing raw SQL
-for example instead of SELECT * FROM users WHERE id = 1 you write user = User.query.get(1)
-<!-- Advantages -->
-1. Write Python instead of SQL
-2. Prevents SQL injections
-3. Database portability - you can easily switch between PostgreSQL,SQLite,MySQL etc by simply changing 
-SQLALCHEMY_DATABASE_URI = "postgresql://..."
-4. Relationships are easier - ORMs simplify one-to-many, many-to-many relationships
-5. Migrations become easy
-Using Flask-Migrate, the ORM knows how your tables are structured.
+<!-- BACKEND -->
+The producton grade backend folder structure includes app, migration, test folders and .env, requirements.txt and run.py. One responsibility per file is necessary to prevent circular imports, easier debugging,easy reading of code and easier testing. App contains everything related to the application logic. init.py makes the app folder a python package and contains the application factory. it allows multiple environments(test,dev,prod), required for clean testing and prevents global state bugs
 
-<!-- CORS -->
-CORS allows us interact with the backend from a different specified url and by doing so prevents requests from unknown urls
 
-<!-- JSON -->
-Data format used to send data between frontend and backend
+A config file s a plain text file that stores settings, parameters and credentials for an application separate fromthe main source code. this is because secrets must be centralized, config differs per environment and deployment becomes easier
 
-404 means endpoint does not exist 
-flask blue prints separate routes for cleaner code
+extensions.py contains shared toolds e.g database, JWT,CORS to prevent circular imports and for clean dependency injection
+
+models.py holds databases as python classes for a single source of truth for data and that ORM logic must stay isolated
+
+routes folder contains files each with one domain of the API auth.py for Authentication and contact.py for Contact CRUD this is necessary for scaling(users,payments,orders...) and readability
+
+The test folder is for automated verification of behaviour for catching regressions, safe refactors, required in real teams
