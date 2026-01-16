@@ -27,3 +27,13 @@ this is the application factory very important.
 
 
 
+<!-- Refresher notes -->
+An industry grade backend folder structure entails the app folder,migrations,test and .env,requirements.txt and run.py files. The app folder contains everything the app requires, tests are all the tests needed for the app, migrations for database management ,.env to store the app's credentials that should not be exposed or pushed to github, extensions.txt to lists all packages that have been installed and in use in the app, run.py to execute the app
+
+<!-- Modular and scalable --> modular means breaking down large application into smaller , independent and manageable components while scalable means systems ability to increase workloads, user traffic or data volumes without compromising performance    
+
+An industry grade flask backend follows a modular and scalable folder structure that promotes separation of concerns, maintainability and security
+The main folders are the app, migrations and tests. The app folder is the core application package which contains all the business logic and application components such as route definitions,models,schemas, services, configuration files, extensions initialization , in production systems, the app folder is often structured using blue prints to keep features isolated and scalable
+
+
+An industry grade flask backend consists of a modular and scalable architecture that promotes separation of concerns, maintainability and security. The main folders are app,migrations and testts. the app folder is the core application package hosting route definitions, models, schemas,services,config files and extensions initializationThe app folder is often structured using blueprints to keep features isolated and scalable. 
