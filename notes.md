@@ -11,3 +11,19 @@ models.py holds databases as python classes for a single source of truth for dat
 routes folder contains files each with one domain of the API auth.py for Authentication and contact.py for Contact CRUD this is necessary for scaling(users,payments,orders...) and readability
 
 The test folder is for automated verification of behaviour for catching regressions, safe refactors, required in real teams
+
+A class is a blueprint for creating objects. It defines what attributes and methods the resluting object will have. Instances are specific objects created from a class
+
+<!-- config.py -->
+We define a class for all related configs because a class allows for easy inheritance (DevConfig,ProdConfig)
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret") - used by flask internally for sessions,cookies and security
+SQLALCHEMY_DATABASE_URI = "sqlite:///database.db" defines where the database lives
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "jwt-secret") is used to sign tokens so if leaked attackers may forge tokens
+
+<!-- __init__.py -->
+this is the application factory very important.
+
+
+
+
+
