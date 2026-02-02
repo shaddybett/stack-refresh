@@ -1,0 +1,1 @@
+# Lists all project dependencies to ensure consistent setup across all machines
