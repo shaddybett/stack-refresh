@@ -32,8 +32,21 @@ An industry grade backend folder structure entails the app folder,migrations,tes
 
 <!-- Modular and scalable --> modular means breaking down large application into smaller , independent and manageable components while scalable means systems ability to increase workloads, user traffic or data volumes without compromising performance    
 
-An industry grade flask backend follows a modular and scalable folder structure that promotes separation of concerns, maintainability and security
-The main folders are the app, migrations and tests. The app folder is the core application package which contains all the business logic and application components such as route definitions,models,schemas, services, configuration files, extensions initialization , in production systems, the app folder is often structured using blue prints to keep features isolated and scalable
 
+<!-- Root folder structure -->
+A production grade flask backend should be modular and scalable. 
+Modular means the application is broken down into small, independent components making the codebase easier to read, maintain, test and debug.
+Scalable means it should be able to handle growing traffic and features without compromising performance or stability.
 
-An industry grade flask backend consists of a modular and scalable architecture that promotes separation of concerns, maintainability and security. The main folders are app,migrations and testts. the app folder is the core application package hosting route definitions, models, schemas,services,config files and extensions initializationThe app folder is often structured using blueprints to keep features isolated and scalable. 
+At the root level, the project contains several folders and files.
+The app folder contains core application logic like routes, models, business logic and configurations
+The migrations folder contains database migration scripts to handle schema changes and versioning
+The test folder contains automated tests that help ensure system reliability and prevent regressions
+The project files includes, .env which stores environment specif variables like database URLs and api keys, keeping sensitive data outside the codebase
+requirements.txt contains a list of project dependencies to ensure consistent environment setup across machines
+run.py serves as the application entry point and is used to start the flask developement server
+
+<!-- App Folder --> 
+__init__.py
+In python, __init__.py marks a directory as a package. In flask __init__.py does more than that whereby it is responsible for : creating the flask application, loading configurations, initializing extensions, registering blueprints(routes)
+In production we do not use app = Flask(__name__) coz it's bad for testing, multiple environments, scalability instead we use the application factory pattern which means creating a function that builds and returns flask app and app is cteated only when needed
