@@ -26,3 +26,12 @@ def create_app(create_app=Config):    # This allows different configs e.g develo
 # Loading configuration
 # initializing extensions
 # Registering blueprints
+
+# Using create_app() allows:
+# Multiple app instances
+# Isolated test environments
+# Better dependency injection
+# Easier scaling & maintenance
+# This is non negotiable for serious flask projects
+
+# __init__.py is a factory that assembles the application. It does not do work it prepares the system to work
