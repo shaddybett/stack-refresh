@@ -47,6 +47,40 @@ requirements.txt contains a list of project dependencies to ensure consistent en
 run.py serves as the application entry point and is used to start the flask developement server
 
 <!-- App Folder --> 
-__init__.py
+1. __init__.py
 In python, __init__.py marks a directory as a package. In flask __init__.py does more than that whereby it is responsible for : creating the flask application, loading configurations, initializing extensions, registering blueprints(routes)
-In production we do not use app = Flask(__name__) coz it's bad for testing, multiple environments, scalability instead we use the application factory pattern which means creating a function that builds and returns flask app and app is cteated only when needed
+In production we do not use app = Flask(__name__) coz it's bad for testing, multiple environments, scalability instead we use the application factory pattern which means creating a function that builds and returns flask app and app is created only when needed
+
+2. config.py
+
+This is the 'brain' of the configurationsystem. In production systems, config must not be scattered across files, secrets must not be hardcoded, behaviour must change per environment(dev,test and prod). config.py solves this by, Centralizing all configurations, Supportng multiple environments and pulling sensitive values for environment variables
+
+example
+A clean, scalable approach uses classes
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+The above base class holds shared settings
+
+We can extend the base class for each environment
+
+class DevelopementConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("DEv_DATABASE_URL")
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URL")
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+
+class inheritance matters because it avoids duplication, keeps environment consistent and makes adding new environemnts trivial
