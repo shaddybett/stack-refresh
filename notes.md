@@ -27,3 +27,60 @@ this is the application factory very important.
 
 
 
+<!-- Refresher notes -->
+An industry grade backend folder structure entails the app folder,migrations,test and .env,requirements.txt and run.py files. The app folder contains everything the app requires, tests are all the tests needed for the app, migrations for database management ,.env to store the app's credentials that should not be exposed or pushed to github, extensions.txt to lists all packages that have been installed and in use in the app, run.py to execute the app
+
+<!-- Modular and scalable --> modular means breaking down large application into smaller , independent and manageable components while scalable means systems ability to increase workloads, user traffic or data volumes without compromising performance    
+
+
+<!-- Root folder structure -->
+A production grade flask backend should be modular and scalable. 
+Modular means the application is broken down into small, independent components making the codebase easier to read, maintain, test and debug.
+Scalable means it should be able to handle growing traffic and features without compromising performance or stability.
+
+At the root level, the project contains several folders and files.
+The app folder contains core application logic like routes, models, business logic and configurations
+The migrations folder contains database migration scripts to handle schema changes and versioning
+The test folder contains automated tests that help ensure system reliability and prevent regressions
+The project files includes, .env which stores environment specif variables like database URLs and api keys, keeping sensitive data outside the codebase
+requirements.txt contains a list of project dependencies to ensure consistent environment setup across machines
+run.py serves as the application entry point and is used to start the flask developement server
+
+<!-- App Folder --> 
+1. __init__.py
+In python, __init__.py marks a directory as a package. In flask __init__.py does more than that whereby it is responsible for : creating the flask application, loading configurations, initializing extensions, registering blueprints(routes)
+In production we do not use app = Flask(__name__) coz it's bad for testing, multiple environments, scalability instead we use the application factory pattern which means creating a function that builds and returns flask app and app is created only when needed
+
+2. config.py
+
+This is the 'brain' of the configurationsystem. In production systems, config must not be scattered across files, secrets must not be hardcoded, behaviour must change per environment(dev,test and prod). config.py solves this by, Centralizing all configurations, Supportng multiple environments and pulling sensitive values for environment variables
+
+example
+A clean, scalable approach uses classes
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+The above base class holds shared settings
+
+We can extend the base class for each environment
+
+class DevelopementConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("DEv_DATABASE_URL")
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URL")
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+
+class inheritance matters because it avoids duplication, keeps environment consistent and makes adding new environemnts trivial
