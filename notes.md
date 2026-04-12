@@ -84,3 +84,32 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
 
 class inheritance matters because it avoids duplication, keeps environment consistent and makes adding new environemnts trivial
+
+
+
+
+
+
+
+__init__.py is the app factory. In python it tells python to treat the folder as a package but in flask it does more than that. It registers blue prints, initializes extensions and enables creation of flask app depending on the desired environments whether test, dev or prod. A typical init file would look like,
+
+from config import Config
+from flask import Flask
+from auth import auth_bp
+from .extensions import db, cors,migrate
+
+def create_app(Config):  #create app creates the flask app
+    app = Flask(__name__)   #tells flask where to find resources
+    app.config.from_object(Config) # Sets up configurations
+
+    #Initializing extensions
+    db.init_app(app)
+    cors.init_app(app)
+    migrate.init_app(app)
+
+    #registering blue rints
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+
+    #returns the app, run.py, tests or WSGI servers call this function
+    #flask app is built
+    return app
