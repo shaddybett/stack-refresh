@@ -1,7 +1,3 @@
-Here’s a **clean, well-structured Markdown file** you can copy directly 👇
-
----
-
 ````markdown
 # 🐍 Python Refresher Notes
 
@@ -211,3 +207,44 @@ If you want next, I can:
 - Add **control flow (if, loops)** to this file
 - Or extend it into a **DSA-ready Python cheat sheet** 🚀
 ```
+
+
+Type conversion
+x = input("x: ")
+y = x + 1
+print(y)
+input() is a function that let's you place a value when we take this x = input("x: ") and a user inputs value 2 for example, it is treated as a string
+so for the above operation we will get an error since we can calculate a string and an integer. We however have some built in functions that helps us
+with type conversion e.g int() , str(), bool(), float()
+x = input("x: ")
+y = int(x) + 1
+print(y)
+now the above will work.
+Truthy and Falsy values "", None, 0 are considered falsy values
+
+<!-- Fundamentals of Computer programming -->
+1. Comparsion Operators 
+we use comparison operators to compare values
+10 > 10 , 10 >= 10, 10 != "10", 10 < 20, 10 <= 10, 10 == 10 all these will return True
+"bag" > "apple" will return True
+"bag" == "BAG" will return False since ord("b"), ord("B") are in different orders
+2. Conditional statements
+if statements are terminated with a colon
+an example of a conditional statement
+temeprature = 15
+if temperature > 20:
+    print("It is warm")
+elif temperature > 30:
+    print("It is hot")
+else:
+    print("It is cold")
+
+3. Ternary operator
+example:
+temperatue = 15
+
+message = "Warm" if temperature >= 20 else "cold" if temperature <= 20 
+
+print(message)
+4. Logical Operators
+and, or, not
